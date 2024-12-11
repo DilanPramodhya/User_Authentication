@@ -25,6 +25,10 @@ export const sender = {
 //   })
 //   .then(console.log, console.error);
 
+
+
+
+
 // This is another way of sending gmail
 
 // // const transporter = nodemailer.createTransport({
