@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAuthStore } from "../store/authStore";
+import { toast } from "react-toastify";
 
 const EmailVerification = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const navigateTo = useNavigate();
+
+  const { error, isLoading, verifyEmail } = useAuthStore();
 
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -39,10 +43,18 @@ const EmailVerification = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const verificationCode = code.join("");
-    console.log(`Verification Code Submitted: ${verificationCode}`);
+    // console.log(`Verification Code Submitted: ${verificationCode}`);
+    try {
+      await verifyEmail(verificationCode);
+      navigateTo("/");
+      toast.success("Email verified Successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
   };
 
   // Auto Submit when all fields are filled
@@ -83,6 +95,19 @@ const EmailVerification = () => {
               />
             ))}
           </div>
+          {/* {error && <p className="text-red-500 font-semibold mt-2">{error}</p>} */}
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            disabled={isLoading || code.some((digit) => !digit)}
+            className="mt-5 w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white 
+            font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-blue-500 
+            focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
+          >
+            {isLoading ? "Verifying ...." : "Verify Email"}
+          </motion.button>
         </form>
       </motion.div>
     </div>

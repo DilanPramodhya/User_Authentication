@@ -3,6 +3,8 @@ import FloatingShape from "./components/FloatingShape";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerification from "./pages/EmailVerification";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
         <Route path="/logIn" element={<LoginPage />} />
         <Route path="/verifyEmail" element={<EmailVerification />} />
       </Routes>
+      <ToastContainer position="top-right" theme="dark" />
     </div>
   );
 }
