@@ -64,7 +64,9 @@ const SignUpPage = () => {
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex items-center justify-center">
         <p className="text-sm text-gray-400">Already have an Account</p>
-        <Link to={"/logIn"} className="text-blue-400 hover:underline ml-2">Log In</Link>
+        <Link to={"/logIn"} className="text-blue-400 hover:underline ml-2">
+          Log In
+        </Link>
       </div>
     </motion.div>
   );
