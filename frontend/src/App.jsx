@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import NotFoundPage from "./pages/NotFoundPage";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -101,12 +102,23 @@ function App() {
           }
         />
         <Route path="/verifyEmail" element={<EmailVerification />} />
-        <Route path="/forgotPassword" element={<RedirectAuthenticatedUser>
-          <ForgotPassword />
-        </RedirectAuthenticatedUser>} />
-        <Route path="/resetPassword/:token" element={<RedirectAuthenticatedUser>
-          <ResetPassword />
-        </RedirectAuthenticatedUser>} />
+        <Route
+          path="/forgotPassword"
+          element={
+            <RedirectAuthenticatedUser>
+              <ForgotPassword />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/resetPassword/:token"
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPassword />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer position="top-right" theme="dark" />
     </div>

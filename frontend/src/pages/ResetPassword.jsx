@@ -1,14 +1,13 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Input from "../components/Input";
-import { Loader, Lock, Mail } from "lucide-react";
+import { Lock } from "lucide-react";
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { toast } from "react-toastify";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { isLoading, resetPassword } = useAuthStore();
 

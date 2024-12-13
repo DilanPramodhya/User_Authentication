@@ -109,7 +109,7 @@ export const login = async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, message: "Invalid credentials. From User" });
+        .json({ success: false, message: "Fill Full Form" });
     }
 
     // Validate password
@@ -117,7 +117,7 @@ export const login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(400).json({
         success: false,
-        message: "Invalid credentials. From Password",
+        message: "Password is Incorrect",
       });
     }
 
