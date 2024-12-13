@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Navigate, Route, Routes } from "react-router-dom";
 import FloatingShape from "./components/FloatingShape";
 import SignUpPage from "./pages/SignUpPage";
@@ -9,6 +10,7 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import LoadingSpinner from "./components/LoadingSpinner";
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -98,6 +100,9 @@ function App() {
           }
         />
         <Route path="/verifyEmail" element={<EmailVerification />} />
+        <Route path="/forgotPassword" element={<RedirectAuthenticatedUser>
+          <ForgotPassword />
+        </RedirectAuthenticatedUser>} />
       </Routes>
       <ToastContainer position="top-right" theme="dark" />
     </div>

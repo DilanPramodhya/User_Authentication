@@ -7,12 +7,8 @@ const HomePage = () => {
   const { user, logout } = useAuthStore();
 
   const handleLogout = () => {
-    try {
-      logout();
-      toast.success("Logged Out Successfully");
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    logout();
+    toast.success("Logged Out Successfully");
   };
 
   return (

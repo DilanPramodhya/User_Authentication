@@ -97,6 +97,25 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  forgotPassword: async (email) => {
+    set({ isLoading: true, error: null, message: null });
+
+    try {
+      const response = await axios.post(`${API_URL}/forgotPassword`, { email });
+      set({
+        message: response.data.message,
+        isLoading: false,
+      });
+    } catch (error) {
+      set({
+        isLoading: false,
+        error:
+          error.response.data.message || "Error sending reset password email",
+      });
+      throw error;
+    }
+  },
+
   checkAuth: async () => {
     // await new Promise((resolve) => setTimeout(resolve, 1000));   - to check the LoadingSpinner
     set({ isCheckingAuth: true, error: null });
