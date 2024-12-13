@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import HomePage from "./pages/HomePage";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -36,14 +37,17 @@ const RedirectAuthenticatedUser = ({ children }) => {
 };
 
 function App() {
-  const { checkAuth, isAuthenticated, user } = useAuthStore();
+  const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  console.log("Is Authenticated: ", isAuthenticated);
-  console.log("User: ", user);
+  // console.log("Is Authenticated: ", isAuthenticated);
+  // console.log("User: ", user);
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-500 flex items-center justify-center relative overflow-hidden">
       <FloatingShape

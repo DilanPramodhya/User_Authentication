@@ -3,14 +3,24 @@ import Input from "../components/Input";
 import { Loader, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isLoading = false;
+  // const isLoading = false;
 
-  const handleLogin = (e) => {
+  const { login, isLoading, error } = useAuthStore();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+    try {
+      await login(email, password);
+      toast.success("User Logged in Successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
   return (
     <motion.div
@@ -48,6 +58,8 @@ const LoginPage = () => {
             </Link>
           </div>
 
+          {/* {error && <p className="text-red-500 font-semibold mb-2">{error}</p>} */}
+
           <motion.button
             className="mt-5 w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white 
             font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-blue-500 
@@ -57,8 +69,13 @@ const LoginPage = () => {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? <Loader className="size-6 animate-spin mx-auto" /> : "Log In"}
-            {/* Log In */}</motion.button>
+            {isLoading ? (
+              <Loader className="size-6 animate-spin mx-auto" />
+            ) : (
+              "Log In"
+            )}
+            {/* Log In */}
+          </motion.button>
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex items-center justify-center">
